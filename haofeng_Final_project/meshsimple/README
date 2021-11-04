@@ -1,0 +1,57 @@
+运行：输入需要简化的模型路径 输出你想要的输出路径 选择简化或是重新网格化
+函数说明:
+    meshsimpleQEM.h:
+        getSurfaceEquation():给一个三角形，计算其所在平面的方程，并记录为所需要的[a b c d]^T的向量形式
+        getCost():给定一对点，求出dv'最小的v'，并将这个有效边和新的v',二次误差返回
+        insertT():插入新的三角形，并更新其所有顶点的Q
+        removeT():删去三角形，并更新其所有顶点的Q
+        removeV():删去顶点，并在相邻的顶点处更新
+        flip():测试选择v'后，是否带来拓扑上不好的影响，可以删去
+        deleteV():核心部分，坍缩的过程
+
+    Vec.h:
+        向量的运算
+
+    Global.h:
+        定义LOOP,TRANVERSAL用于简化迭代部分的代码
+        Vec V[maxs_V]记录点
+        int T[maxs_T][3]记录三角形
+        int rmV = 0, rmT = 0;记录已经删去的
+        记录临接情况：
+        set<int> triV[maxs_V];//adjacency triangle
+        set<int> verV[maxs_V];//adjacency vertex
+        记录平面法向量：
+        double equaT[maxs_T][4];
+        记录Kp,Q
+        double matrixT[maxs_T][4][4];
+        double matrixV[maxs_V][4][4];
+        记录当前点是否可用，被删去的点将被标记
+        bool disableV[maxs_V];
+        bool disableT[maxs_T];
+        记录当前点加入时的点总数，用于比较更新的顺序
+        int tag[maxs_V];//the number of the model when this vertex is insert
+        存入时使用,新的点的ID
+        int newID[maxs_V];
+
+    Object_Loader.h:
+        读入和存入模型数据
+
+     tetrahedron.h:
+        Surface结构体，因为记录了一些关于面的操作
+            bool IsActive;面是否可用
+            tetra* pneighbor;一个面属于一或两个四面体
+            int pnodes[3];记录三个点
+            tetra* pparent;
+            bool operator==(const Surface&);
+            bool IsRayCross(Vec s, Vec dir);用于判断是否在四面体内
+        tetra结构体
+            tetra* GetLocateId(int);得到一个点处于哪个空腔内
+            bool IsInSphere(int);判断是否在球内部
+            Surface* GetAdjacentSurface(tetra*);求两个四面体的临接面
+
+    Delaunay.h:
+        MakeSupertetrahedron():建立最初的辅助四面体
+        MeshLocal():插入点算法，更新对应Delaunay空腔的四边形
+        MeshRoughMesh():找到新插入点对应的是哪个四面体
+        DeleteSupertetrahedron():删除辅助的四面体及相连的四面体
+        MakeMesh():调用前面函数

@@ -1,0 +1,3 @@
+/Users/fenghao/OSTESTS/meshsimple/CMakeFiles/rebuild_cache.dir
+/Users/fenghao/OSTESTS/meshsimple/CMakeFiles/edit_cache.dir
+/Users/fenghao/OSTESTS/meshsimple/CMakeFiles/meshsimple.dir

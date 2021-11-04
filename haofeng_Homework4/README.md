@@ -1,0 +1,4 @@
+1.实现了de castljau 算法
+2.实现了bezier 曲线的反走样
+
+recursive_bezier函数中实现了返回曲线上对应点的坐标，bezier曲线实现了通过调用recursive_bezier函数来画出逐个点的功能。其中可以选择反走样的方式。
