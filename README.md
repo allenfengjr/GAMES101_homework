@@ -3,4 +3,4 @@ This repository is my homework archive of GAMES101 in 2020 spring. The framework
 
 You can also find the slides in GAMES website.
 
-TODO: I will try to find the code of bonus. I have finished them and submitted them successfully. However, I may not able to find them now because I change my laptop.
+TODO: I will try to find the bonus codes. I have completed them and submitted them successfully. However, I may not able to find them now because I switc hed my laptop.
